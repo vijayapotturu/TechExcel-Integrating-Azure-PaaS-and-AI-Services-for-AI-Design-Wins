@@ -57,7 +57,6 @@ builder.Services.AddSingleton<AzureOpenAIClient>((_) =>
 {
     var endpoint = new Uri(builder.Configuration["AzureOpenAI:Endpoint"]!);
     var credentials = new AzureKeyCredential(builder.Configuration["AzureOpenAI:ApiKey"]!);
-
     var client = new AzureOpenAIClient(endpoint, credentials);
     return client;
 });

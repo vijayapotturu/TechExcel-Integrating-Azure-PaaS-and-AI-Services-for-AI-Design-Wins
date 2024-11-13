@@ -8,9 +8,9 @@ using Microsoft.Data.SqlClient;
 using Azure.AI.OpenAI;
 using Azure;
 using Microsoft.AspNetCore.Mvc;
- using Microsoft.SemanticKernel;
- using Microsoft.SemanticKernel.Connectors.OpenAI;
- using Microsoft.SemanticKernel.ChatCompletion;
+using Microsoft.SemanticKernel;
+using Microsoft.SemanticKernel.Connectors.OpenAI;
+using Microsoft.SemanticKernel.ChatCompletion;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -115,15 +115,15 @@ app.MapGet("/Hotels/{hotelId}/Bookings/{min_date}", async (int hotelId, DateTime
 // This endpoint is used to send a message to the Azure OpenAI endpoint.
 app.MapPost("/Chat", async Task<string> (HttpRequest request) =>
  {
-     var message = await Task.FromResult(request.Form["message"]);
-     var kernel = app.Services.GetRequiredService<Kernel>();
-     var chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
-     var executionSettings = new OpenAIPromptExecutionSettings
-     {
-         ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions
-     };
-     var response = await chatCompletionService.GetChatMessageContentAsync(message.ToString(), executionSettings, kernel);
-     return response?.Content!;
+    var message = await Task.FromResult(request.Form["message"]);
+    var kernel = app.Services.GetRequiredService<Kernel>();
+    var chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
+    var executionSettings = new OpenAIPromptExecutionSettings
+    {
+    ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions
+    };
+    var response = await chatCompletionService.GetChatMessageContentAsync(message.ToString(), executionSettings, kernel);
+    return response?.Content!;
  })
     .WithName("Chat")
     .WithOpenApi();

@@ -127,10 +127,6 @@ app.MapPost("/Chat", async Task<string> (HttpRequest request) =>
  })
     .WithName("Chat")
     .WithOpenApi();
-
-    .WithName("Chat")
-    .WithOpenApi();
-
 // This endpoint is used to vectorize a text string.
 // We will use this to generate embeddings for the maintenance request text.
 app.MapGet("/Vectorize", async (string text, [FromServices] IVectorizationService vectorizationService) =>

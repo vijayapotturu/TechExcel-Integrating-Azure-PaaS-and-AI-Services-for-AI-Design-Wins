@@ -5,12 +5,15 @@ using ContosoSuitesWebAPI.Entities;
 using ContosoSuitesWebAPI.Plugins;
 using ContosoSuitesWebAPI.Services;
 using Microsoft.Data.SqlClient;
-using Azure.AI.OpenAI;
+//using Azure.AI.OpenAI;
 using Azure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 using Microsoft.SemanticKernel.ChatCompletion;
+using Microsoft.SemanticKernel;
+using Microsoft.SemanticKernel.Embeddings;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -53,13 +56,13 @@ builder.Services.AddSingleton<Kernel>((_) =>
      return kernelBuilder.Build();
  });
 
-builder.Services.AddSingleton<AzureOpenAIClient>((_) =>
-{
-    var endpoint = new Uri(builder.Configuration["AzureOpenAI:Endpoint"]!);
-    var credentials = new AzureKeyCredential(builder.Configuration["AzureOpenAI:ApiKey"]!);
-    var client = new AzureOpenAIClient(endpoint, credentials);
-    return client;
-});
+//builder.Services.AddSingleton<AzureOpenAIClient>((_) =>
+//{
+//    var endpoint = new Uri(builder.Configuration["AzureOpenAI:Endpoint"]!);
+//    var credentials = new AzureKeyCredential(builder.Configuration["AzureOpenAI:ApiKey"]!);
+//    var client = new AzureOpenAIClient(endpoint, credentials);
+//    return client;
+//});
 
 var app = builder.Build();
 

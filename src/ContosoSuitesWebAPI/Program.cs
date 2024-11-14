@@ -150,7 +150,7 @@ app.MapPost("/VectorSearch", async ([FromBody] float[] queryVector, [FromService
 {
     var results = await vectorizationService.ExecuteVectorSearch(queryVector, max_results, minimum_similarity_score);
     return results;
-})
+   })
     .WithName("VectorSearch")
     .WithOpenApi();
 

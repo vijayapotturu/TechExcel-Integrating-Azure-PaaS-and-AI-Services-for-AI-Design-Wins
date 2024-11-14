@@ -54,12 +54,11 @@ def create_transcription_request(audio_file, speech_recognition_language="en-US"
         done= True
 
     # TODO: Subscribe to the events fired by the conversation transcriber
-    # Subscribe to the events fired by the conversation transcriber
     transcriber.transcribed.connect(handle_final_result)
     transcriber.session_started.connect(lambda evt: print(f'SESSION STARTED: {evt}'))
     transcriber.session_stopped.connect(lambda evt: print(f'SESSION STOPPED {evt}'))
     transcriber.canceled.connect(lambda evt: print(f'CANCELED {evt}'))
-    # stop continuous transcription on either session stopped or canceled events
+    # TODO: stop continuous transcription on either session stopped or canceled events
     transcriber.session_stopped.connect(stop_cb)
     transcriber.canceled.connect(stop_cb)
 
@@ -73,8 +72,6 @@ def create_transcription_request(audio_file, speech_recognition_language="en-US"
          time.sleep(.5)
 
     transcriber.stop_transcribing_async()
-
-    # TODO: stop continuous transcription on either session stopped or canceled events
 
     # TODO: remove this placeholder code and perform the actual transcription
     # all_results = ['This is a test.', 'Fill in with real transcription.']

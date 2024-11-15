@@ -22,8 +22,8 @@ var config = new ConfigurationBuilder()
 
 builder.Services.AddSingleton<Kernel>((_) =>
  {
-     IKernelBuilder kernelBuilder = Kernel.CreateBuilder();
-     kernelBuilder.AddAzureOpenAIChatCompletion(
+    IKernelBuilder kernelBuilder = Kernel.CreateBuilder();
+    kernelBuilder.AddAzureOpenAIChatCompletion(
         deploymentName: builder.Configuration["AzureOpenAI:DeploymentName"]!,
         endpoint: builder.Configuration["ApiManagement:Endpoint"]!,
         apiKey: builder.Configuration["ApiManagement:ApiKey"]!

@@ -1,4 +1,5 @@
-﻿using ContosoSuitesWebAPI.Entities;
+﻿using System.Globalization;
+using ContosoSuitesWebAPI.Entities;
 using Microsoft.Azure.Cosmos;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Embeddings;

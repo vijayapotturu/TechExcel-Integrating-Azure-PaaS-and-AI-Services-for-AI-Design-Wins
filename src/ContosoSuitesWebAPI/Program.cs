@@ -159,6 +159,7 @@ app.MapPost("/MaintenanceCopilotChat", async ([FromBody]string message, [FromSer
 {
     // Exercise 5 Task 2 TODO #10: Insert code to call the Chat function on the MaintenanceCopilot. Don't forget to remove the NotImplementedException.
     var response = await copilot.Chat(message);
+    
     return response;
 
 })

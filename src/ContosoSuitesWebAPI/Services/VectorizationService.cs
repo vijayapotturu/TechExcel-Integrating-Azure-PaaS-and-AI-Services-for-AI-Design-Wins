@@ -1,7 +1,7 @@
-﻿using Azure.AI.OpenAI;
-using ContosoSuitesWebAPI.Entities;
+﻿using ContosoSuitesWebAPI.Entities;
 using Microsoft.Azure.Cosmos;
 using Microsoft.SemanticKernel;
+using Microsoft.SemanticKernel.Embeddings;
 
 namespace ContosoSuitesWebAPI.Services
 {
@@ -24,11 +24,10 @@ namespace ContosoSuitesWebAPI.Services
             try
             {
                 // Generate a vector for the provided text.
-                // Generate a vector for the provided text.
-
-                  // Generate a vector for the provided text.
+#pragma warning disable SKEXP0001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
                 var embeddings = await _kernel.GetRequiredService<ITextEmbeddingGenerationService>().GenerateEmbeddingAsync(text);
-              
+#pragma warning restore SKEXP0001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
+
 
                 var vector = embeddings.ToArray();
 
@@ -50,8 +49,8 @@ namespace ContosoSuitesWebAPI.Services
         {
             var db = _cosmosClient.GetDatabase(configuration.GetValue<string>("CosmosDB:DatabaseName") ?? "ContosoSuites");
             var container = db.GetContainer(configuration.GetValue<string>("CosmosDB:MaintenanceRequestsContainerName") ?? "MaintenanceRequests");
+           
             var vectorString = string.Join(", ", queryVector.Select(v => v.ToString(CultureInfo.InvariantCulture)).ToArray());
-
             var query = $"SELECT c.hotel_id AS HotelId, c.hotel AS Hotel, c.details AS Details, c.source AS Source, VectorDistance(c.request_vector, [{vectorString}]) AS SimilarityScore FROM c";
             query += $" WHERE VectorDistance(c.request_vector, [{vectorString}]) > {minimum_similarity_score.ToString(CultureInfo.InvariantCulture)}";
             query += $" ORDER BY VectorDistance(c.request_vector, [{vectorString}])";
